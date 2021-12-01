@@ -5,6 +5,9 @@ declare module "@emotion/react" {
     palette: {
       GRAY_COLOR1: string;
       GRAY_COLOR2: string;
+      GRAY_COLOR3: string;
+
+      DEFAULT_RADIUS: string;
     };
   }
 }
