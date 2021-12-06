@@ -21,3 +21,23 @@
    - 하나의 방법으로 기본 서비스를 제공
 5. main.ts
    - 핵심 기능 NestFactory를 사용하여 Nest 애플리케이션 인스턴스를 생성하는 파일
+
+## Swagger 적용
+
+```sh
+> yarn add @nestjs/swagger swagger-ui-express
+```
+
+- main.ts
+
+```ts
+const config = new DocumentBuilder()
+  .setTitle('Simple BBS')
+  .setDescription('The Simple BBS API description')
+  .setVersion('0.1')
+  .addTag('BBS')
+  .build();
+
+const document = SwaggerModule.createDocument(app, config);
+SwaggerModule.setup('api-docs', app, document);
+```
