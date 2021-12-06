@@ -1,5 +1,5 @@
 {
-  "name": "client_2",
+  "name": "client",
   "private": true,
   "scripts": {
     "dev": "next dev",
