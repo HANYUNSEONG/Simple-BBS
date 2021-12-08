@@ -19,6 +19,8 @@ import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe'
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { GetBoardsDto } from './dto/get-boards.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -39,14 +41,30 @@ export class BoardsController {
     return this.boardsService.getAllBoards();
   }
 
+  @Get('/my')
+  @ApiOperation({
+    summary: '내 게시글만 모두 가져오는 API',
+    description: '내 게시글만 모두 가져온다.',
+  })
+  @ApiResponse({
+    description: '내 게시글만 모두 가져온다.',
+    type: GetBoardsDto,
+  })
+  getMyBoards(@GetUser() user: User): Promise<Board[]> {
+    return this.boardsService.getMyBoards(user);
+  }
+
   @Post()
   @ApiOperation({
     summary: '게시글 작성하는 API',
     description: '게시글을 작성한다.',
   })
   @UsePipes(ValidationPipe)
-  createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
-    return this.boardsService.createBoard(createBoardDto);
+  createBoard(
+    @Body() createBoardDto: CreateBoardDto,
+    @GetUser() user: User,
+  ): Promise<Board> {
+    return this.boardsService.createBoard(createBoardDto, user);
   }
 
   @Get('/:id')
