@@ -1,10 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
-  Req,
   UseGuards,
   ValidationPipe,
+  Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
@@ -40,6 +41,17 @@ export class AuthController {
     accessToken: string;
   }> {
     return this.authService.signIn(authCredentialsDto);
+  }
+
+  @UseGuards(AuthGuard())
+  @Get('/me')
+  @ApiOperation({
+    summary: '내 정보 API',
+    description: '내 정보를 가져온다.',
+  })
+  getProfile(@Request() req) {
+    console.log(req);
+    return req.user;
   }
 
   @Post('/test')
