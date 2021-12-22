@@ -40,7 +40,7 @@ export class AuthController {
   signIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
     @Res() response: Response,
-  ): Promise<void> {
+  ): Promise<any> {
     return this.authService.signIn(authCredentialsDto, response);
   }
 
@@ -51,7 +51,7 @@ export class AuthController {
     description: '내 정보를 가져온다.',
   })
   getProfile(@Request() req) {
-    console.log(req);
+    // console.log(req);
     return req.user;
   }
 

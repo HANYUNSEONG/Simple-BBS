@@ -1,10 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const PORT = 4000;
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: 'GET,PUT,PATCH,POST,DELETE,HEAD',
+    preflightContinue: false,
+    credentials: true,
+  });
+  app.use(cookieParser());
 
   const config = new DocumentBuilder()
     .setTitle('Simple BBS')

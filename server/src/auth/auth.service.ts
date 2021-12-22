@@ -21,7 +21,7 @@ export class AuthService {
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
     response: Response,
-  ): Promise<void> {
+  ): Promise<any> {
     const { username, password } = authCredentialsDto;
     const user = await this.userRepository.findOne({ username });
 
@@ -35,7 +35,8 @@ export class AuthService {
       response
         .cookie('access_token', accessToken, {
           httpOnly: true,
-          domain: 'localhost',
+          path: '/',
+          // domain: 'http://localhost:3000',
           expires: new Date(Date.now() + 1000 * 60 * 68 * 24),
         })
         .send({
@@ -43,7 +44,7 @@ export class AuthService {
         });
 
       // return {
-      //   accessToken,
+      //   success: true,
       // };
     } else {
       throw new UnauthorizedException('login failed');

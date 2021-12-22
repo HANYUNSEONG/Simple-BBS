@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { User } from './user.entity';
 import { UserRepository } from './user.repository';
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -16,7 +15,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: 'SimpleBBS-SECRET',
 
       // jwt type
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request: any) => {
+          console.log(request?.cookies['access_token']);
+          return request?.cookies['access_token'];
+        },
+      ]),
     });
   }
 
