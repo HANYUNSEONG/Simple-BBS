@@ -6,6 +6,7 @@ import {
   UseGuards,
   ValidationPipe,
   Request,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
@@ -13,6 +14,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from './get-user.decorator';
 import { User } from './user.entity';
+import { Response } from 'express';
 
 @Controller('auth')
 @ApiTags('Auth API')
@@ -37,10 +39,9 @@ export class AuthController {
   })
   signIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{
-    accessToken: string;
-  }> {
-    return this.authService.signIn(authCredentialsDto);
+    @Res() response: Response,
+  ): Promise<void> {
+    return this.authService.signIn(authCredentialsDto, response);
   }
 
   @UseGuards(AuthGuard())

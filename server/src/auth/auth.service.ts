@@ -4,6 +4,7 @@ import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,8 @@ export class AuthService {
 
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
-  ): Promise<{ accessToken: string }> {
+    response: Response,
+  ): Promise<void> {
     const { username, password } = authCredentialsDto;
     const user = await this.userRepository.findOne({ username });
 
@@ -28,11 +30,21 @@ export class AuthService {
       const payload = {
         username,
       };
-      const accessToken = await this.jwtService.sign(payload);
+      const accessToken = this.jwtService.sign(payload);
 
-      return {
-        accessToken,
-      };
+      response
+        .cookie('access_token', accessToken, {
+          httpOnly: true,
+          domain: 'localhost',
+          expires: new Date(Date.now() + 1000 * 60 * 68 * 24),
+        })
+        .send({
+          success: true,
+        });
+
+      // return {
+      //   accessToken,
+      // };
     } else {
       throw new UnauthorizedException('login failed');
     }
