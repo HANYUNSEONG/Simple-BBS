@@ -1,4 +1,4 @@
-import { toastAtom } from "@/recoil/atom/toast";
+import { toastAtom } from "@/recoil/toast/atom/toast";
 import { ToastColor } from "@/theme/toast";
 import { StatusCodeType } from "@/types/toast";
 import { css } from "@emotion/react";
