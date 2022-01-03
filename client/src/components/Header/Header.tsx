@@ -1,3 +1,4 @@
+import CustomAxios from "@/apis/customAxios";
 import Link from "next/link";
 import { HeaderWrapper } from "./styles";
 
@@ -5,10 +6,17 @@ const menus = [
   {
     title: "로그인",
     path: "/signin",
+    isLogin: false,
   },
   {
     title: "회원가입",
     path: "/signup",
+    isLogin: false,
+  },
+  {
+    title: "글쓰기",
+    path: "/write",
+    isLogin: true,
   },
 ];
 

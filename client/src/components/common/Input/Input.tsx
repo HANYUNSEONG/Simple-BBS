@@ -29,7 +29,7 @@ const InputWrapper = styled.div<InputWrapperTypes>`
     font-size: 1rem;
     padding: ${({ size }) => size};
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
   }
 `;
 

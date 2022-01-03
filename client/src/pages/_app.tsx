@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "@emotion/react";
@@ -8,6 +8,7 @@ import Layout from "@/components/Layout";
 import theme from "@/theme";
 import { RecoilRoot } from "recoil";
 import Toast from "@/components/common/Toast";
+import AuthProvider from "@/components/AuthProvider";
 
 function SimpleBBS({ Component, pageProps }: AppProps) {
   const isProd = process.env.NODE_ENV === "production";
@@ -20,7 +21,9 @@ function SimpleBBS({ Component, pageProps }: AppProps) {
           {!isProd && <ReactQueryDevtools />}
           <Layout>
             <Toast />
-            <Component {...pageProps} />
+            <AuthProvider>
+              <Component {...pageProps} />
+            </AuthProvider>
           </Layout>
         </RecoilRoot>
       </QueryClientProvider>
