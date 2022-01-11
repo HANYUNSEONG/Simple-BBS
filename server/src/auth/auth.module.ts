@@ -4,6 +4,7 @@ import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtRefreshStrategy } from './jwt-refresh.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { UserRepository } from './user.repository';
 
@@ -23,7 +24,7 @@ import { UserRepository } from './user.repository';
   controllers: [AuthController],
 
   // JwtStrategy를 Auth 모듈에서 사용할 수 있게 등록
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, JwtRefreshStrategy],
 
   // JwtStrategy, PassportModule를 다른 모듈에서 사용할 수 있도록 등록
   exports: [JwtStrategy, PassportModule],

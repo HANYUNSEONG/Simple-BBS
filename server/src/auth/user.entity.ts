@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Board } from 'src/boards/board.entity';
 import {
   BaseEntity,
@@ -23,4 +24,8 @@ export class User extends BaseEntity {
 
   @OneToMany((type) => Board, (board) => board.user, { eager: true })
   boards: Board[];
+
+  @Column({ nullable: true })
+  @Exclude()
+  refreshToken?: string;
 }
