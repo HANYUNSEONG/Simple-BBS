@@ -37,8 +37,8 @@ export class AuthService {
 
   getCookieWithJwtAccessToken(username: string) {
     const payload = { username };
-    // const expiresTime = 1000 * 60 * 15;
-    const expiresTime = 1000 * 10;
+    const expiresTime = 1000 * 60 * 15; // 15분
+    // const expiresTime = 1000 * 10;   // 10초 (테스트용)
 
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.get('JWT_ACCESS_TOKEN_SECRET'),
