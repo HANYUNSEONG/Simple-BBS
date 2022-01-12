@@ -15,17 +15,20 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   full?: boolean;
   buttonSize?: sizeTypes;
   buttonTheme?: CommonColorType;
+  noStyle?: boolean;
 }
 function Button({
   children,
   buttonSize = "default",
   buttonTheme = "black",
+  noStyle = false,
   ...rest
 }: IButton) {
   return (
     <ButtonWrapper
       size={sizeMap[buttonSize]}
       buttonTheme={buttonTheme}
+      noStyle={noStyle}
       {...rest}
     >
       {children}
@@ -36,14 +39,20 @@ function Button({
 type ButtonWrapperTypes = {
   size: string;
   buttonTheme: CommonColorType;
+  noStyle?: boolean;
 };
 const ButtonWrapper = styled.button<ButtonWrapperTypes>`
-  padding: ${({ size }) => size};
   border: none;
   font-size: 1rem;
-  font-weight: bold;
+  /* font-weight: bold; */
   cursor: pointer;
-  border-radius: 5px;
+
+  ${({ noStyle, size }) =>
+    !noStyle &&
+    css`
+      border-radius: 5px;
+      padding: ${size};
+    `};
 
   ${({ buttonTheme }) => css`
     background-color: ${CommonColor[buttonTheme].backgroundColor};
