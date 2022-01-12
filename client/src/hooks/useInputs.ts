@@ -1,6 +1,9 @@
 import { ChangeEvent, useState } from "react";
 
-function useInputs() {
+function useInputs(): [
+  { [key: string]: any } | undefined,
+  (e: ChangeEvent<HTMLInputElement>) => void
+] {
   const [inputsData, setInputsData] = useState<{ [key: string]: any }>();
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -10,10 +13,7 @@ function useInputs() {
     }));
   };
 
-  return {
-    inputsData,
-    handleChangeInput,
-  };
+  return [inputsData, handleChangeInput];
 }
 
 export default useInputs;
