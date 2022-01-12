@@ -18,7 +18,6 @@ export class JwtRefreshStrategy extends PassportStrategy(
       passReqToCallback: true,
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request) => {
-          console.log(request?.cookies);
           return request?.cookies?.RefreshToken;
         },
       ]),
