@@ -1,8 +1,7 @@
-import { AxiosResponse } from "axios";
 import { FormEvent } from "react";
 import { useMutation } from "react-query";
-import Router from "next/router";
-import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { SignInFormBox, SignInFormWrapper } from "./styles";
@@ -12,24 +11,23 @@ import { toastAtom } from "@/recoil/toast/atom/toast";
 import { ISignIn } from "@/types/auth";
 
 function SignInForm() {
-  const { inputsData, handleChangeInput } = useInputs();
-  const [_, setToastMessage] = useRecoilState(toastAtom);
+  const router = useRouter();
+  const [inputsData, handleChangeInput] = useInputs();
+  const setToastMessage = useSetRecoilState(toastAtom);
 
   const mutation = useMutation((loginData: ISignIn) => signIn(loginData));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     mutation.mutate(inputsData as ISignIn, {
-      onSuccess: (payload: AxiosResponse) => {
-        console.log(payload);
-
+      onSuccess: () => {
         setToastMessage({
           showing: true,
           type: "success",
           message: "로그인 완료",
         });
 
-        Router.push("/");
+        router.push("/");
       },
       onError: () => {
         setToastMessage({

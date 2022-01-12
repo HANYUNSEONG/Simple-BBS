@@ -26,6 +26,13 @@ export const HeaderWrapper = styled.header`
         &:not(:last-child) {
           border-right: 1px solid #ddd;
         }
+
+        a {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }
