@@ -81,6 +81,7 @@ export class AuthController {
     description: '내 정보를 가져온다.',
   })
   getProfile(@Request() req) {
+    delete req.user.boards;
     return req.user;
   }
 
