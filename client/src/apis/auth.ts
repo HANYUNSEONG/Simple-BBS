@@ -16,3 +16,7 @@ export const getProfile = async (cookies?: string) => {
 export const logout = async () => {
   return await customAxios.post(`/auth/logout`);
 };
+
+export const signUp = async (signUpData: ISignIn) => {
+  return await customAxios.post(`/auth/signup`, signUpData);
+};

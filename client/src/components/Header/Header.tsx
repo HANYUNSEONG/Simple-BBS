@@ -30,9 +30,9 @@ const menus = [
 function Header() {
   const router = useRouter();
   const { isLogin } = useAuth();
-  const setToastMessage = useSetRecoilState(toastAtom);
 
   const logoutMutation = useMutation(logout);
+  const setToastMessage = useSetRecoilState(toastAtom);
   const handleLogout = () => {
     logoutMutation.mutate(undefined, {
       onSuccess() {

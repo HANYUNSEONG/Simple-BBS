@@ -5,10 +5,4 @@ const Login: NextPage = () => {
   return <SignInForm />;
 };
 
-export async function getServerSideProps() {
-  return {
-    props: {},
-  };
-}
-
 export default Login;
