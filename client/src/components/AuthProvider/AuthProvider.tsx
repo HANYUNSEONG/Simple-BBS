@@ -26,12 +26,6 @@ export const getUser = async (ctx: Context) => {
         .join(";")
     : "";
 
-  if (!cookies)
-    return {
-      isLogin: false,
-      userData: null,
-    };
-
   return await CustomAxios.get(`/auth/me`, {
     headers: ctx.req ? { Cookie: cookies } : {},
     withCredentials: true,
