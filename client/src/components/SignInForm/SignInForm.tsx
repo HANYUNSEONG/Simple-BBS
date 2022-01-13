@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
@@ -13,12 +13,15 @@ import { ISignIn } from "@/types/auth";
 function SignInForm() {
   const router = useRouter();
   const [inputsData, handleChangeInput] = useInputs();
+  const [errorText, setErrorText] = useState<string | null>(null);
   const setToastMessage = useSetRecoilState(toastAtom);
 
   const mutation = useMutation((loginData: ISignIn) => signIn(loginData));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setErrorText(null);
+
     mutation.mutate(inputsData as ISignIn, {
       onSuccess: () => {
         setToastMessage({
@@ -29,7 +32,14 @@ function SignInForm() {
 
         router.push("/");
       },
-      onError: () => {
+      onError: (error: any) => {
+        const errorMessage = error.response.data?.message;
+        if (errorMessage && typeof errorMessage === "object") {
+          setErrorText(() => errorMessage.join("\r\n"));
+        } else {
+          setErrorText(() => errorMessage);
+        }
+
         setToastMessage({
           showing: true,
           type: "error",
@@ -56,6 +66,7 @@ function SignInForm() {
           inputSize="large"
           onChange={handleChangeInput}
         />
+        {errorText && <p>{errorText}</p>}
         <Button type="submit">로그인</Button>
       </SignInFormBox>
     </SignInFormWrapper>

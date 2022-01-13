@@ -13,9 +13,10 @@ export const SignUpFormWrapper = styled.section`
 `;
 
 export const SignUpFormBox = styled.form`
+  padding: 0 1rem;
   margin-top: 2rem;
+
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  padding: 0 1rem;
 `;

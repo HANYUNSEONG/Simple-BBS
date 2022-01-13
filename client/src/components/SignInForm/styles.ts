@@ -20,4 +20,8 @@ export const SignInFormBox = styled.form`
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
+
+  p {
+    color: #ed1443;
+  }
 `;
