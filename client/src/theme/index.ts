@@ -30,4 +30,17 @@ export const CommonColor: CommonColorTypes = {
   },
 };
 
+type deviceType = "DESKTOP" | "TABLET" | "MOBILE";
+export const deviceSizeMap: { [key in deviceType]: string } = {
+  DESKTOP: "1440px",
+  TABLET: "768px",
+  MOBILE: "375px",
+};
+
+export const deviceMedia: { [key in deviceType]: string } = {
+  DESKTOP: `screen and (max-width: ${deviceSizeMap.DESKTOP})`,
+  TABLET: `screen and (max-width: ${deviceSizeMap.TABLET})`,
+  MOBILE: `screen and (max-width: ${deviceSizeMap.MOBILE})`,
+};
+
 export default theme;
