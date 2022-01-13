@@ -23,6 +23,8 @@ export class AuthService {
     const { username, password } = authCredentialsDto;
     const user = await this.userRepository.findOne({ username });
 
+    if (!user) throw new UnauthorizedException('아이디가 올바르지 않습니다.');
+
     if (user && (await bcrypt.compare(password, user.password))) {
       return {
         user: {
@@ -31,7 +33,7 @@ export class AuthService {
         },
       };
     } else {
-      throw new UnauthorizedException('login failed');
+      throw new UnauthorizedException('비밀번호가 올바르지 않습니다.');
     }
   }
 
