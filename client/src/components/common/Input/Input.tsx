@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { InputHTMLAttributes } from "react";
 
@@ -11,10 +12,11 @@ const sizeMap: { [key in sizeTypes]: string } = {
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   inputSize?: sizeTypes;
   label?: string;
+  noStyle?: boolean;
 }
-function Input({ inputSize = "default", ...rest }: IInputProps) {
+function Input({ inputSize = "default", noStyle, ...rest }: IInputProps) {
   return (
-    <InputWrapper size={sizeMap[inputSize]}>
+    <InputWrapper size={sizeMap[inputSize]} noStyle={noStyle}>
       <input {...rest} />
     </InputWrapper>
   );
@@ -22,14 +24,20 @@ function Input({ inputSize = "default", ...rest }: IInputProps) {
 
 type InputWrapperTypes = {
   size: string;
+  noStyle?: boolean;
 };
 const InputWrapper = styled.div<InputWrapperTypes>`
   & input {
     width: 100%;
     font-size: 1rem;
     padding: ${({ size }) => size};
-    border-radius: 5px;
-    border: 1px solid #ddd;
+
+    ${({ noStyle }) =>
+      !noStyle &&
+      css`
+        border-radius: 5px;
+        border: 1px solid #ddd;
+      `}
   }
 `;
 
