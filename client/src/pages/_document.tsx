@@ -5,7 +5,9 @@ import { globalStyle } from "@/theme/GlobalStyle";
 function Document() {
   return (
     <Html lang="ko">
-      <Head />
+      <Head>
+        <link rel="shortcut icon" href="/simple-bbs-logo.png" />
+      </Head>
       <body>
         <Global styles={globalStyle} />
         <Main />
