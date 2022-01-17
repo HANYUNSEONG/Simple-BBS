@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ThemeProvider } from "@emotion/react";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 
 import Layout from "@/components/Layout";
 import theme from "@/theme";
@@ -11,7 +12,6 @@ import Toast from "@/components/common/Toast";
 import AuthProvider from "@/components/AuthProvider";
 import { getUser } from "@/components/AuthProvider/AuthProvider";
 import App from "next/app";
-
 function SimpleBBS({ Component, pageProps }: AppProps) {
   const isProd = process.env.NODE_ENV === "production";
   const [queryClient] = React.useState(() => new QueryClient());
