@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { BoardStatus } from '../board-status.enum';
 
 export class CreateBoardDto {
   @ApiProperty()
@@ -9,4 +10,10 @@ export class CreateBoardDto {
   @ApiProperty()
   @IsNotEmpty()
   description: string;
+
+  @ApiProperty({
+    enum: BoardStatus,
+  })
+  @IsEnum(BoardStatus)
+  status: BoardStatus;
 }

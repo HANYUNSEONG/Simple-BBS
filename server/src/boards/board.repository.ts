@@ -1,6 +1,5 @@
 import { User } from 'src/auth/user.entity';
 import { EntityRepository, Repository } from 'typeorm';
-import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
 import { CreateBoardDto } from './dto/create-board.dto';
 
@@ -10,12 +9,12 @@ export class BoardRepository extends Repository<Board> {
     createBoardDto: CreateBoardDto,
     user: User,
   ): Promise<Board> {
-    const { title, description } = createBoardDto;
+    const { title, description, status } = createBoardDto;
 
     const board = this.create({
       title,
       description,
-      status: BoardStatus.PUBLIC,
+      status,
       user,
     });
 
