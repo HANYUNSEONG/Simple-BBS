@@ -38,7 +38,6 @@ export const HeaderWrapper = styled.header`
   }
 
   @media screen and (max-width: 480px) {
-    width: 90%;
     margin: 0 auto;
     flex-direction: column;
     row-gap: 1rem;

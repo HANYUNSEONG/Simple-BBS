@@ -9,5 +9,11 @@ declare module "@emotion/react" {
 
       DEFAULT_RADIUS: string;
     };
+
+    deviceMedia: {
+      DESKTOP: string;
+      TABLET: string;
+      MOBILE: string;
+    };
   }
 }

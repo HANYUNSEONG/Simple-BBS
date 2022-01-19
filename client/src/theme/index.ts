@@ -6,8 +6,6 @@ const palette = {
   DEFAULT_RADIUS: "20px",
 };
 
-const theme = { palette };
-
 export type CommonColorType = "black" | "white" | "transparent";
 type CommonColorTypes = {
   [key in CommonColorType]: {
@@ -42,5 +40,7 @@ export const deviceMedia: { [key in deviceType]: string } = {
   TABLET: `screen and (max-width: ${deviceSizeMap.TABLET})`,
   MOBILE: `screen and (max-width: ${deviceSizeMap.MOBILE})`,
 };
+
+const theme = { palette, deviceMedia };
 
 export default theme;
