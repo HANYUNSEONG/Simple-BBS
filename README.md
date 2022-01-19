@@ -10,6 +10,8 @@
 
 - NextJS
 - emotion
+- Recoil
+- React Query
 
 ## Server
 
