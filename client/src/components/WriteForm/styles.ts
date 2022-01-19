@@ -10,8 +10,12 @@ export const WriteFormBox = styled.form`
 
 export const WriteFormGroup = styled.div`
   display: flex;
-  column-gap: 0.5rem;
   justify-content: space-between;
+
+  div {
+    display: flex;
+    column-gap: 0.5rem;
+  }
 `;
 
 export const EditArea = styled.div`

@@ -1,5 +1,8 @@
+import { writeBoard } from "@/apis/board";
 import useInputs from "@/hooks/useInputs";
-import { FormEvent, useEffect, useRef } from "react";
+import { BoardStatus, BoardStatusKo, IBoardDefault } from "@/types/board";
+import { FormEvent, forwardRef, useEffect, useRef } from "react";
+import { useMutation } from "react-query";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Select from "../common/Select";
@@ -11,11 +14,19 @@ import {
   EditorWrapper,
   EditArea,
 } from "./styles";
+import { BoardType } from "@/types/board";
 
 function WriteForm() {
-  const [writeData, setWriteDate] = useInputs();
+  const [writeData, setWriteData] = useInputs<{
+    status: BoardType;
+  }>({
+    status: BoardStatus.PUBLIC,
+  });
   const editorRef = useRef<any>(null);
 
+  const writeSubmitMutation = useMutation((writeData: IBoardDefault) =>
+    writeBoard(writeData)
+  );
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -23,8 +34,20 @@ function WriteForm() {
     if (markdown) {
       const payload = {
         ...writeData,
-        content: markdown,
-      };
+        description: markdown,
+      } as IBoardDefault;
+
+      writeSubmitMutation.mutateAsync(payload, {
+        onSuccess(result) {
+          console.log(result);
+        },
+        onError(error) {
+          console.log(error);
+        },
+        onSettled(result, error) {
+          console.log(`onSettled`);
+        },
+      });
     }
   };
 
@@ -34,14 +57,17 @@ function WriteForm() {
         <WriteFormGroup>
           <div>
             <Select
+              name="status"
+              onChange={setWriteData}
+              defaultValue={BoardStatus.PUBLIC}
               options={[
                 {
-                  title: "공개",
-                  value: "PUBLIC",
+                  title: BoardStatusKo.PUBLIC,
+                  value: BoardStatus.PUBLIC,
                 },
                 {
-                  title: "비공개",
-                  value: "PRIVATE",
+                  title: BoardStatusKo.PRIVATE,
+                  value: BoardStatus.PRIVATE,
                 },
               ]}
             />
@@ -61,7 +87,7 @@ function WriteForm() {
             placeholder="제목을 입력해주세요!"
             inputSize="large"
             noStyle
-            onChange={setWriteDate}
+            onChange={setWriteData}
           />
           <EditorWrapper>
             <Editor
