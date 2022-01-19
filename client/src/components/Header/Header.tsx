@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { HeaderWrapper } from "./styles";
-import { useAuth } from "../AuthProvider/AuthProvider";
+import { getUser, useAuth } from "../../contexts/AuthProvider/AuthProvider";
 import { useMutation } from "react-query";
 import { logout } from "@/apis/auth";
 import Button from "../common/Button";

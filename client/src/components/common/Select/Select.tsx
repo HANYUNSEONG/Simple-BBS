@@ -1,12 +1,12 @@
 import styled from "@emotion/styled";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, SelectHTMLAttributes } from "react";
 
 type OptionsType = {
   title: string;
   value: any;
 };
 
-interface ISelectProps extends HTMLAttributes<HTMLSelectElement> {
+interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: OptionsType[];
 }
 

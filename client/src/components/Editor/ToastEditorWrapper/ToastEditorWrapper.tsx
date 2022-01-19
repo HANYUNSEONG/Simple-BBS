@@ -5,10 +5,10 @@ import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import "prismjs/themes/prism.css";
 import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { LegacyRef } from "react";
+import { ForwardedRef } from "react";
 
 interface IToastEditorWrapper extends EditorProps {
-  forwardedRef: LegacyRef<Editor>;
+  forwardedRef: ForwardedRef<any>;
 }
 function ToastEditorWrapper({ forwardedRef, ...props }: IToastEditorWrapper) {
   return (

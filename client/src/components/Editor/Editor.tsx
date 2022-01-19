@@ -1,9 +1,9 @@
-import { forwardRef, LegacyRef } from "react";
+import { ForwardedRef, forwardRef } from "react";
 import dynamic from "next/dynamic";
 import { EditorProps } from "@toast-ui/react-editor";
 
-interface IEditorProps<T> extends EditorProps {
-  forwardedRef: LegacyRef<T>;
+interface IEditorProps extends EditorProps {
+  forwardedRef: ForwardedRef<any>;
 }
 
 const ToastEditor = dynamic(() => import("./ToastEditorWrapper"), {
@@ -11,12 +11,12 @@ const ToastEditor = dynamic(() => import("./ToastEditorWrapper"), {
 });
 
 const ToastEditorWithForwardedRef = forwardRef(
-  ({ forwardedRef, ...props }: any) => (
+  ({ forwardedRef, ...props }: any, ref) => (
     <ToastEditor {...props} forwardedRef={forwardedRef} />
   )
 );
 
-function Editor({ forwardedRef, ...props }: IEditorProps<any>) {
+function Editor({ forwardedRef, ...props }: IEditorProps) {
   return <ToastEditorWithForwardedRef forwardedRef={forwardedRef} {...props} />;
 }
 

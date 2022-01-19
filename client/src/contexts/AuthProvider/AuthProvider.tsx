@@ -9,8 +9,13 @@ interface IAuthContext {
 }
 interface IAuthProvider {
   children: React.ReactElement;
-  authData: IAuthContext;
+  authData?: IAuthContext;
 }
+
+const initialState = {
+  userData: null,
+  isLogin: false,
+};
 
 export const AuthContext = createContext<IAuthContext>({
   userData: null,
@@ -32,6 +37,10 @@ export const getUser = async (ctx: Context) => {
   })
     .then((response) => {
       if (response.data) {
+        CustomAxios.defaults.headers.common = {
+          Cookie: cookies,
+        };
+
         return {
           isLogin: true,
           userData: response.data,
@@ -48,7 +57,9 @@ export const getUser = async (ctx: Context) => {
 
 function AuthProvider({ children, authData }: IAuthProvider) {
   return (
-    <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authData ?? initialState}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

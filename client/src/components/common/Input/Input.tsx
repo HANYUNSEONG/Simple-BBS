@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, Ref } from "react";
 
 type sizeTypes = "small" | "default" | "large";
 const sizeMap: { [key in sizeTypes]: string } = {

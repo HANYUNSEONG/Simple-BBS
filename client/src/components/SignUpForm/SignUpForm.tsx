@@ -18,6 +18,7 @@ function SignUpForm() {
   const signUpMutation = useMutation((signUpData: ISignIn) =>
     signUp(signUpData)
   );
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
