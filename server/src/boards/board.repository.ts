@@ -20,6 +20,7 @@ export class BoardRepository extends Repository<Board> {
 
     await this.save(board);
 
+    delete board.user;
     return board;
   }
 }
