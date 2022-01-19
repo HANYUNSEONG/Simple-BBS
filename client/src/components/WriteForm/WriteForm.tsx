@@ -1,6 +1,8 @@
-import { useRef } from "react";
+import useInputs from "@/hooks/useInputs";
+import { FormEvent, useEffect, useRef } from "react";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import Select from "../common/Select";
 import Editor from "../Editor";
 import {
   WriteFormWrapper,
@@ -11,23 +13,60 @@ import {
 } from "./styles";
 
 function WriteForm() {
-  const testRef = useRef<any>(null);
+  const [writeData, setWriteDate] = useInputs();
+  const editorRef = useRef<any>(null);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+
+    const markdown = editorRef.current.getInstance().getMarkdown();
+    if (markdown) {
+      const payload = {
+        ...writeData,
+        content: markdown,
+      };
+    }
+  };
 
   return (
     <WriteFormWrapper>
       <WriteFormBox>
         <WriteFormGroup>
-          <Button type="button" buttonTheme="white">
-            미리보기
-          </Button>
-          <Button type="submit">작성</Button>
+          <div>
+            <Select
+              options={[
+                {
+                  title: "공개",
+                  value: "PUBLIC",
+                },
+                {
+                  title: "비공개",
+                  value: "PRIVATE",
+                },
+              ]}
+            />
+          </div>
+          <div>
+            <Button type="button" buttonTheme="white">
+              미리보기
+            </Button>
+            <Button type="submit" onClick={handleSubmit}>
+              작성
+            </Button>
+          </div>
         </WriteFormGroup>
         <EditArea>
-          <Input placeholder="제목을 입력해주세요!" inputSize="large" noStyle />
+          <Input
+            name="title"
+            placeholder="제목을 입력해주세요!"
+            inputSize="large"
+            noStyle
+            onChange={setWriteDate}
+          />
           <EditorWrapper>
             <Editor
-              forwardedRef={testRef}
-              previewStyle="vertical"
+              forwardedRef={editorRef}
+              previewStyle="tab"
               height="100vh"
               initialEditType="markdown"
               hideModeSwitch={true}
