@@ -15,8 +15,10 @@ import {
   EditArea,
 } from "./styles";
 import { BoardType } from "@/types/board";
+import { useRouter } from "next/router";
 
 function WriteForm() {
+  const router = useRouter();
   const [writeData, setWriteData] = useInputs<{
     status: BoardType;
   }>({
@@ -39,7 +41,10 @@ function WriteForm() {
 
       writeSubmitMutation.mutateAsync(payload, {
         onSuccess(result) {
-          console.log(result);
+          if (result.data?.id) {
+            const id = result.data?.id;
+            router.push(`/post/${id}`);
+          }
         },
         onError(error) {
           console.log(error);

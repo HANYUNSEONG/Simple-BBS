@@ -1,5 +1,8 @@
 import { IBoardDefault } from "@/types/board";
-import { PostDetailWrapper } from "./styles";
+import dynamic from "next/dynamic";
+import { PostDetailWrapper, ViewerWrapper } from "./styles";
+
+const Viewer = dynamic(() => import("@/components/Viewer"), { ssr: false });
 
 interface IPostDetailProps {
   post: IBoardDefault;
@@ -8,9 +11,12 @@ interface IPostDetailProps {
 function PostDetail({ post }: IPostDetailProps) {
   return (
     <PostDetailWrapper>
-      <h1>{post.title}</h1>
-      <p>{post.description}</p>
-      {post.status}
+      <div className="title-wrapper">
+        <h1>{post.title}</h1>
+      </div>
+      <ViewerWrapper>
+        <Viewer initialValue={post.description} />
+      </ViewerWrapper>
     </PostDetailWrapper>
   );
 }
