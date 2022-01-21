@@ -1,8 +1,11 @@
+import { timestamp } from 'rxjs';
 import { User } from 'src/auth/user.entity';
 import {
   BaseEntity,
   Column,
+  CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -21,6 +24,9 @@ export class Board extends BaseEntity {
 
   @Column()
   status: BoardStatus;
+
+  @CreateDateColumn()
+  createdDate: Date;
 
   @ManyToOne(() => User, (user) => user.boards, { eager: false })
   user: User;
