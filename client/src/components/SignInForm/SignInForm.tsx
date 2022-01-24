@@ -8,21 +8,21 @@ import { SignInFormBox, SignInFormWrapper } from "./styles";
 import { signIn } from "@/apis/auth";
 import useInputs from "@/hooks/useInputs";
 import { toastAtom } from "@/recoil/toast/atom/toast";
-import { ISignIn } from "@/types/auth";
+import { IUserDefault } from "@/types/auth";
 
 function SignInForm() {
   const router = useRouter();
-  const [inputsData, handleChangeInput] = useInputs();
+  const [inputsData, handleChangeInput] = useInputs(null);
   const [errorText, setErrorText] = useState<string | null>(null);
   const setToastMessage = useSetRecoilState(toastAtom);
 
-  const mutation = useMutation((loginData: ISignIn) => signIn(loginData));
+  const mutation = useMutation((loginData: IUserDefault) => signIn(loginData));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setErrorText(null);
 
-    mutation.mutate(inputsData as ISignIn, {
+    mutation.mutate(inputsData as IUserDefault, {
       onSuccess: () => {
         setToastMessage({
           showing: true,

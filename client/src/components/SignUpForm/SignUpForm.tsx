@@ -5,7 +5,7 @@ import useInputs from "@/hooks/useInputs";
 import { FormEvent } from "react";
 import { useMutation } from "react-query";
 import { signUp } from "@/apis/auth";
-import { ISignIn } from "@/types/auth";
+import { IUserDefault } from "@/types/auth";
 import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { toastAtom } from "@/recoil/toast/atom/toast";
@@ -15,14 +15,14 @@ function SignUpForm() {
   const [inputValues, setInputValues] = useInputs();
   const setToastMessage = useSetRecoilState(toastAtom);
 
-  const signUpMutation = useMutation((signUpData: ISignIn) =>
+  const signUpMutation = useMutation((signUpData: IUserDefault) =>
     signUp(signUpData)
   );
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    signUpMutation.mutate(inputValues as ISignIn, {
+    signUpMutation.mutate(inputValues as IUserDefault, {
       onSuccess: () => {
         setToastMessage({
           type: "success",
