@@ -1,6 +1,7 @@
 import { IBoardDefault } from "@/types/board";
 import dynamic from "next/dynamic";
 import { PostDetailWrapper, ViewerWrapper } from "./styles";
+import moment from "moment";
 
 const Viewer = dynamic(() => import("@/components/Viewer"), { ssr: false });
 
@@ -9,13 +10,18 @@ interface IPostDetailProps {
 }
 
 function PostDetail({ post }: IPostDetailProps) {
+  const { title, id, user, description, createdDate } = post;
+
   return (
     <PostDetailWrapper>
       <div className="title-wrapper">
-        <h1>{post.title}</h1>
+        <h1>{title}</h1>
+        <p>
+          {user.username} | {moment(createdDate).format("YYYY.MM.DD")}
+        </p>
       </div>
       <ViewerWrapper>
-        <Viewer initialValue={post.description} />
+        <Viewer initialValue={description} />
       </ViewerWrapper>
     </PostDetailWrapper>
   );

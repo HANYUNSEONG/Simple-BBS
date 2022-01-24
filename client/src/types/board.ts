@@ -1,3 +1,5 @@
+import { IUserDefault } from "./auth";
+
 export type BoardType = "PUBLIC" | "PRIVATE";
 export const BoardStatus: { [key in BoardType]: BoardType } = {
   PUBLIC: "PUBLIC",
@@ -13,7 +15,10 @@ export interface IBoardItem extends IBoardDefault {
 }
 
 export interface IBoardDefault {
+  id: number;
   title: string;
   description: string;
   status: BoardType;
+  user: IUserDefault;
+  createdDate: Date;
 }

@@ -1,14 +1,17 @@
+import { IBoardDefault } from "@/types/board";
 import PostItem from "../PostItem";
 import { PostListWrapper } from "./styles";
 
-function PostList() {
+interface IPostListProps {
+  posts: IBoardDefault[];
+}
+
+function PostList({ posts }: IPostListProps) {
   return (
     <PostListWrapper>
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
-      <PostItem />
+      {posts.map((post, i) => (
+        <PostItem key={post.title + i} post={post} />
+      ))}
     </PostListWrapper>
   );
 }
