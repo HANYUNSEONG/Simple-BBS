@@ -1,7 +1,7 @@
 import { writeBoard } from "@/apis/board";
 import useInputs from "@/hooks/useInputs";
 import { BoardStatus, BoardStatusKo, IBoardDefault } from "@/types/board";
-import { FormEvent, forwardRef, useEffect, useRef } from "react";
+import { FormEvent, useRef } from "react";
 import { useMutation } from "react-query";
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -78,9 +78,6 @@ function WriteForm() {
             />
           </div>
           <div>
-            <Button type="button" buttonTheme="white">
-              미리보기
-            </Button>
             <Button type="submit" onClick={handleSubmit}>
               작성
             </Button>

@@ -10,3 +10,8 @@ export const writeBoard = async (writeData: IBoardDefault) => {
 export const getPost = async (id: string) => {
   return await CustomAxios.get(`/boards/${id}`);
 };
+
+// 게시글 다 가져오기
+export const getPosts = async () => {
+  return await CustomAxios.get(`/boards`);
+};

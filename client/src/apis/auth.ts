@@ -1,7 +1,7 @@
-import { ISignIn } from "@/types/auth";
+import { IUserDefault } from "@/types/auth";
 import customAxios from "./customAxios";
 
-export const signIn = async (loginData: ISignIn) => {
+export const signIn = async (loginData: IUserDefault) => {
   return await customAxios.post(`/auth/signin`, loginData);
 };
 
@@ -17,6 +17,10 @@ export const logout = async () => {
   return await customAxios.post(`/auth/logout`);
 };
 
-export const signUp = async (signUpData: ISignIn) => {
+export const signUp = async (signUpData: IUserDefault) => {
   return await customAxios.post(`/auth/signup`, signUpData);
+};
+
+export const accessTokenRenewal = async () => {
+  return await customAxios.get(`/auth/refresh`);
 };

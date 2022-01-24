@@ -25,6 +25,11 @@ const menus = [
     path: "/write",
     isLogin: true,
   },
+  {
+    title: "내 정보",
+    path: "/mypage",
+    isLogin: true,
+  },
 ];
 
 function Header() {

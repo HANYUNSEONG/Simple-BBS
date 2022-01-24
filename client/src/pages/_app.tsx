@@ -11,6 +11,7 @@ import Toast from "@/components/common/Toast";
 import AuthProvider from "@/contexts/AuthProvider";
 import { getUser } from "@/contexts/AuthProvider/AuthProvider";
 import App from "next/app";
+import { accessTokenRenewal } from "@/apis/auth";
 
 function SimpleBBS({ Component, pageProps }: AppProps) {
   const isProd = process.env.NODE_ENV === "production";
@@ -40,6 +41,9 @@ SimpleBBS.getInitialProps = async (appContext: any) => {
   */
   const appProps = await App.getInitialProps(appContext);
   const auth = await getUser(appContext.ctx);
+  if (auth?.isLogin) {
+    await accessTokenRenewal();
+  }
 
   return {
     pageProps: {
