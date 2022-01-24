@@ -3,4 +3,5 @@ export interface PaginationResult<T> {
   total: number;
   next?: string;
   previous?: string;
+  currentPage: number;
 }

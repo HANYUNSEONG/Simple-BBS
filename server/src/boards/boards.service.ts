@@ -34,6 +34,7 @@ export class BoardsService {
     return new Pagination<Board>({
       results: posts,
       total: totalCount,
+      currentPage: page,
     });
   }
 
