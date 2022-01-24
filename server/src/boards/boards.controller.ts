@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -23,7 +24,6 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
 
 @Controller('boards')
-@UseGuards(AuthGuard())
 @ApiTags('Boards API')
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
@@ -37,11 +37,15 @@ export class BoardsController {
     description: '게시글을 모두 가져온다',
     type: GetBoardsDto,
   })
-  getAllBoards(): Promise<Board[]> {
-    return this.boardsService.getAllBoards();
+  getAllBoards(@Query('take') take: number, @Query('page') page: number) {
+    return this.boardsService.getAllBoards({
+      take,
+      page,
+    });
   }
 
   @Get('/my')
+  @UseGuards(AuthGuard())
   @ApiOperation({
     summary: '내 게시글만 모두 가져오는 API',
     description: '내 게시글만 모두 가져온다.',
@@ -55,6 +59,7 @@ export class BoardsController {
   }
 
   @Post()
+  @UseGuards(AuthGuard())
   @ApiOperation({
     summary: '게시글 작성하는 API',
     description: '게시글을 작성한다.',
@@ -78,6 +83,7 @@ export class BoardsController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard())
   @ApiOperation({
     summary: '게시글 삭제 API',
     description: '게시글을 삭제한다.',
@@ -87,6 +93,7 @@ export class BoardsController {
   }
 
   @Patch('/:id/status')
+  @UseGuards(AuthGuard())
   @ApiOperation({
     summary: '게시글 상태 업데이트 API',
     description: '게시글의 상태를 업데이트한다.',

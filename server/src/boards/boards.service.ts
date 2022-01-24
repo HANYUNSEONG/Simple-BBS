@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
+import { Pagination, PaginationOptions } from 'src/util/pagination';
 import { BoardStatus } from './board-status.enum';
 import { Board } from './board.entity';
 import { BoardRepository } from './board.repository';
@@ -13,14 +14,27 @@ export class BoardsService {
     private boardRepository: BoardRepository,
   ) {}
 
-  async getAllBoards(): Promise<Board[]> {
-    const posts = await this.boardRepository
+  async getAllBoards({
+    take,
+    page,
+  }: PaginationOptions): Promise<Pagination<Board>> {
+    const postsQuery = this.boardRepository
       .createQueryBuilder('board')
       .innerJoinAndSelect('board.user', 'user')
-      .select(['board', 'user.username', 'user.id'])
+      .select(['board', 'user.username', 'user.id']);
+
+    const posts = await postsQuery
+      .take(take)
+      .skip(take * (page - 1))
+      .orderBy('board.id', 'DESC')
       .getMany();
 
-    return posts;
+    const totalCount = await postsQuery.getCount();
+
+    return new Pagination<Board>({
+      results: posts,
+      total: totalCount,
+    });
   }
 
   async getMyBoards(user: User): Promise<Board[]> {
