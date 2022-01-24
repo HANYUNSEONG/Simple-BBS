@@ -1,11 +1,9 @@
-import { timestamp } from 'rxjs';
 import { User } from 'src/auth/user.entity';
 import {
   BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';

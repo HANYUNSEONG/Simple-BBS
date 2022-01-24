@@ -14,7 +14,13 @@ export class BoardsService {
   ) {}
 
   async getAllBoards(): Promise<Board[]> {
-    return await this.boardRepository.find();
+    const posts = await this.boardRepository
+      .createQueryBuilder('board')
+      .innerJoinAndSelect('board.user', 'user')
+      .select(['board', 'user.username', 'user.id'])
+      .getMany();
+
+    return posts;
   }
 
   async getMyBoards(user: User): Promise<Board[]> {
@@ -26,7 +32,12 @@ export class BoardsService {
   }
 
   async getBoardById(id: number): Promise<Board> {
-    const found = await this.boardRepository.findOne(id);
+    const found = await this.boardRepository
+      .createQueryBuilder('board')
+      .where({ id })
+      .innerJoinAndSelect('board.user', 'user')
+      .select(['board', 'user.username', 'user.id'])
+      .getOne();
 
     if (!found) {
       throw new NotFoundException(`Can't find Board with id ${id}`);
