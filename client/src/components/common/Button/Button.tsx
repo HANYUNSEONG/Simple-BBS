@@ -46,6 +46,7 @@ const ButtonWrapper = styled.button<ButtonWrapperTypes>`
   font-size: 1rem;
   /* font-weight: bold; */
   cursor: pointer;
+  transition: 0.3s;
 
   ${({ noStyle, size }) =>
     !noStyle &&

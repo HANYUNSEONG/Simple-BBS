@@ -7,6 +7,7 @@ export const globalStyle = css`
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
+    font-family: sans-serif;
   }
 
   body {
