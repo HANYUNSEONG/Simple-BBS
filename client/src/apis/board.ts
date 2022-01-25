@@ -15,3 +15,8 @@ export const getPost = async (id: string) => {
 export const getPosts = async ({ take = 10, page }: IGetPostsParam) => {
   return await CustomAxios.get(`/boards?page=${page}&take=${take}`);
 };
+
+// 게시글 삭제
+export const deletePost = async (id: number) => {
+  return await CustomAxios.delete(`/boards/${id}`);
+};

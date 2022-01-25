@@ -13,8 +13,8 @@ export const SignInFormWrapper = styled.section`
 `;
 
 export const SignInFormBox = styled.form`
-  width: 80%;
-  padding: 2rem 0;
+  width: 100%;
+  padding: 2rem 1rem;
   margin: 0 auto;
 
   display: flex;

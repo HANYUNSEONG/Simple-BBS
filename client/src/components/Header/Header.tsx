@@ -25,16 +25,11 @@ const menus = [
     path: "/write",
     isLogin: true,
   },
-  {
-    title: "내 정보",
-    path: "/mypage",
-    isLogin: true,
-  },
 ];
 
 function Header() {
   const router = useRouter();
-  const { isLogin } = useAuth();
+  const { isLogin, userData } = useAuth();
 
   const logoutMutation = useMutation(logout);
   const setToastMessage = useSetRecoilState(toastAtom);
@@ -69,16 +64,21 @@ function Header() {
               )
           )}
           {isLogin && (
-            <li>
-              <Button
-                onClick={handleLogout}
-                buttonSize="small"
-                buttonTheme="transparent"
-                noStyle
-              >
-                로그아웃
-              </Button>
-            </li>
+            <>
+              <li>
+                <Link href="">{userData?.username}</Link>
+              </li>
+              <li>
+                <Button
+                  onClick={handleLogout}
+                  buttonSize="small"
+                  buttonTheme="transparent"
+                  noStyle
+                >
+                  로그아웃
+                </Button>
+              </li>
+            </>
           )}
         </ul>
       </nav>

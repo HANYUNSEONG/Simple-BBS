@@ -22,6 +22,7 @@ export const PostItemWrapper = styled.div`
   }
 
   & p {
+    width: fit-content;
     font-size: 0.8rem;
     color: #999;
   }
