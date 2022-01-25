@@ -1,7 +1,7 @@
 import { IBoardDefault } from "@/types/board";
 import dynamic from "next/dynamic";
 import { PostDetailWrapper, ViewerWrapper } from "./styles";
-import moment from "moment";
+import dayjs from "dayjs";
 
 const Viewer = dynamic(() => import("@/components/Viewer"), { ssr: false });
 
@@ -17,7 +17,7 @@ function PostDetail({ post }: IPostDetailProps) {
       <div className="title-wrapper">
         <h1>{title}</h1>
         <p>
-          {user.username} | {moment(createdDate).format("YYYY.MM.DD")}
+          {user.username} | {dayjs(createdDate).format("YYYY.MM.DD")}
         </p>
       </div>
       <ViewerWrapper>

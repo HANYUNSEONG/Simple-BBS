@@ -1,5 +1,5 @@
 import { IBoardDefault } from "@/types/board";
-import moment from "moment";
+import dayjs from "dayjs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
@@ -22,7 +22,7 @@ function PostItem({ post }: IPostItemProps) {
       <h1>{title}</h1>
       <p onClick={(e) => e.stopPropagation()}>
         <Link href="">{user.username}</Link> |{" "}
-        {moment(createdDate).format("YYYY.MM.DD")}
+        {dayjs(createdDate).format("YYYY.MM.DD")}
       </p>
     </PostItemWrapper>
   );
