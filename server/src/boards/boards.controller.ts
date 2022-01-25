@@ -22,6 +22,7 @@ import { GetBoardsDto } from './dto/get-boards.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { UpdateBoardDto } from './dto/update-board.dto';
 
 @Controller('boards')
 @ApiTags('Boards API')
@@ -70,6 +71,16 @@ export class BoardsController {
     @GetUser() user: User,
   ): Promise<Board> {
     return this.boardsService.createBoard(createBoardDto, user);
+  }
+
+  @Patch()
+  @UseGuards(AuthGuard())
+  @ApiOperation({
+    summary: '게시글 수정하는 API',
+    description: '게시글을 수정한다.',
+  })
+  updateBoard(@Body() updateBoardDto: UpdateBoardDto, @GetUser() user: User) {
+    return this.boardsService.updateBoard(updateBoardDto, user);
   }
 
   @Get('/:id')
