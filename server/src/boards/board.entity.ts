@@ -11,8 +11,8 @@ import { BoardStatus } from './board-status.enum';
 
 @Entity()
 export class Board extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   title: string;

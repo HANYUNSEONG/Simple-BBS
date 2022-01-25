@@ -5,5 +5,5 @@ import { CreateBoardDto } from './create-board.dto';
 export class UpdateBoardDto extends CreateBoardDto {
   @ApiProperty()
   @IsNotEmpty()
-  id: number;
+  id: string;
 }
