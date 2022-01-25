@@ -88,7 +88,7 @@ export class BoardsController {
     summary: '게시글 1개 가져오는 API',
     description: '게시글 ID에 맞는 게시글을 가져온다.',
   })
-  getBoardById(@Param('id', ParseIntPipe) id: number): Promise<Board> {
+  getBoardById(@Param('id') id: string): Promise<Board> {
     console.log(id);
     return this.boardsService.getBoardById(id);
   }
@@ -99,7 +99,7 @@ export class BoardsController {
     summary: '게시글 삭제 API',
     description: '게시글을 삭제한다.',
   })
-  deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  deleteBoard(@Param('id') id: string): Promise<void> {
     return this.boardsService.deleteBoard(id);
   }
 
@@ -110,7 +110,7 @@ export class BoardsController {
     description: '게시글의 상태를 업데이트한다.',
   })
   updateBoardStatus(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ): Promise<Board> {
     return this.boardsService.updateBoardStatus(id, status);

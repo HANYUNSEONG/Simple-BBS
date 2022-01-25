@@ -28,7 +28,7 @@ export class BoardsService {
     const posts = await postsQuery
       .take(take)
       .skip(take * (page - 1))
-      .orderBy('board.id', 'DESC')
+      .orderBy('board.createdDate', 'DESC')
       .getMany();
 
     const totalCount = await postsQuery.getCount();
@@ -52,7 +52,7 @@ export class BoardsService {
     return this.boardRepository.updateBoard(updateBoardDto, user);
   }
 
-  async getBoardById(id: number): Promise<Board> {
+  async getBoardById(id: string): Promise<Board> {
     const found = await this.boardRepository
       .createQueryBuilder('board')
       .where({ id })
@@ -67,7 +67,7 @@ export class BoardsService {
     return found;
   }
 
-  async deleteBoard(id: number): Promise<void> {
+  async deleteBoard(id: string): Promise<void> {
     const result = await this.boardRepository.delete(id);
 
     if (result.affected === 0) {
@@ -75,7 +75,7 @@ export class BoardsService {
     }
   }
 
-  async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
+  async updateBoardStatus(id: string, status: BoardStatus): Promise<Board> {
     const board = await this.getBoardById(id);
 
     board.status = status;

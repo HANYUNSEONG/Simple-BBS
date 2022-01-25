@@ -5,7 +5,7 @@ import { BoardStatus } from '../board-status.enum';
 
 export class GetBoardsDto {
   @ApiProperty()
-  id: number;
+  id: string;
 
   @ApiProperty()
   title: string;
