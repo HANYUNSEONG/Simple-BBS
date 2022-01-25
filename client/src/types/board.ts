@@ -22,3 +22,8 @@ export interface IBoardDefault {
   user: IUserDefault;
   createdDate: Date;
 }
+
+export interface IGetPostsParam {
+  take?: number;
+  page: number;
+}

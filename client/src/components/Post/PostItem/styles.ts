@@ -8,7 +8,21 @@ export const PostItemWrapper = styled.div`
   cursor: pointer;
   transition: 0.3s;
 
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+
+  will-change: transform;
   &:hover {
     transform: translateY(-5px);
+  }
+
+  & h1 {
+    font-size: 1rem;
+  }
+
+  & p {
+    font-size: 0.8rem;
+    color: #999;
   }
 `;

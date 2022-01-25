@@ -1,19 +1,12 @@
-import { IBoardDefault } from "@/types/board";
-import PostItem from "../PostItem";
+import React from "react";
 import { PostListWrapper } from "./styles";
 
 interface IPostListProps {
-  posts: IBoardDefault[];
+  children: React.ReactNode;
 }
 
-function PostList({ posts }: IPostListProps) {
-  return (
-    <PostListWrapper>
-      {posts.map((post, i) => (
-        <PostItem key={post.title + i} post={post} />
-      ))}
-    </PostListWrapper>
-  );
+function PostList({ children }: IPostListProps) {
+  return <PostListWrapper>{children}</PostListWrapper>;
 }
 
 export default PostList;
