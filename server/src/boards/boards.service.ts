@@ -21,6 +21,7 @@ export class BoardsService {
     const postsQuery = this.boardRepository
       .createQueryBuilder('board')
       .innerJoinAndSelect('board.user', 'user')
+      .where('board.status <> :status ', { status: BoardStatus.PRIVATE })
       .select(['board', 'user.username', 'user.id']);
 
     const posts = await postsQuery
