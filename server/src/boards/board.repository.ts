@@ -28,7 +28,7 @@ export class BoardRepository extends Repository<Board> {
   async updateBoard(updateBoardDto: UpdateBoardDto, user: User) {
     const { id, title, description, status } = updateBoardDto;
 
-    const board = await this.update(
+    await this.update(
       { id },
       {
         title,
@@ -37,7 +37,5 @@ export class BoardRepository extends Repository<Board> {
         user: user,
       },
     );
-
-    return board;
   }
 }
