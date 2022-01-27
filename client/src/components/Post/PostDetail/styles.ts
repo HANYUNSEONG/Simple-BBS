@@ -23,6 +23,11 @@ export const PostDetailWrapper = styled.section`
         font-size: 0.8rem;
         color: #666;
       }
+
+      div {
+        display: flex;
+        column-gap: 0.6rem;
+      }
     }
   }
 `;

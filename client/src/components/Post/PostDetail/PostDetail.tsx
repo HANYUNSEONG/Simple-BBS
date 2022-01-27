@@ -12,6 +12,8 @@ import Modal from "@/components/common/Modal";
 import useModal from "@/hooks/useModal";
 import Confirm from "@/components/common/Modal/Confirm";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { toastAtom } from "@/recoil/toast/atom/toast";
 
 const Viewer = dynamic(() => import("@/components/Viewer"), { ssr: false });
 
@@ -25,18 +27,34 @@ function PostDetail({ post }: IPostDetailProps) {
   const { userData } = useAuth();
   const { title, id, user, description, createdDate } = post;
   const deletePostMutation = useMutation((id: number) => deletePost(id));
+  const setToastMessage = useSetRecoilState(toastAtom);
 
   const handleRemovePost = useCallback(() => {
     deletePostMutation.mutate(id, {
-      onSuccess: (result) => {
+      onSuccess: () => {
+        setToastMessage({
+          showing: true,
+          type: "success",
+          message: "게시글 삭제를 완료했습니다.",
+        });
         router.push("/");
       },
+      onError: () => {
+        setToastMessage({
+          showing: true,
+          type: "error",
+          message: "게시글 삭제 처리 중 오류가 발생했습니다.",
+        });
+      },
     });
-  }, [deletePostMutation, id, router]);
+  }, [deletePostMutation, id, router, setToastMessage]);
+
+  const handleMoveModifyPage = useCallback(() => {}, []);
 
   return (
     <>
       <Head>
+        <meta property="og:title" content={title} />
         <title>
           {title} | {user.username}
         </title>
@@ -64,14 +82,24 @@ function PostDetail({ post }: IPostDetailProps) {
               {user.username} | {dayjs(createdDate).format("YYYY.MM.DD")}
             </p>
             {userData?.id === user.id && (
-              <Button
-                buttonSize="small"
-                buttonTheme="transparent"
-                noStyle
-                onClick={openModal}
-              >
-                삭제
-              </Button>
+              <div>
+                <Button
+                  buttonSize="small"
+                  buttonTheme="transparent"
+                  noStyle
+                  onClick={handleMoveModifyPage}
+                >
+                  수정
+                </Button>
+                <Button
+                  buttonSize="small"
+                  buttonTheme="transparent"
+                  noStyle
+                  onClick={openModal}
+                >
+                  삭제
+                </Button>
+              </div>
             )}
           </div>
         </div>
