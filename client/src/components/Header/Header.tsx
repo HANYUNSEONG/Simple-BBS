@@ -42,7 +42,7 @@ function Header() {
         setToastMessage({
           showing: true,
           type: "error",
-          message: "로그인 실패",
+          message: "로그아웃 실패",
         });
       },
     });

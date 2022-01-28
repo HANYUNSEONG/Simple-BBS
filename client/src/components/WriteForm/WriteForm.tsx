@@ -49,9 +49,6 @@ function WriteForm() {
         onError(error) {
           console.log(error);
         },
-        onSettled(result, error) {
-          console.log(`onSettled`);
-        },
       });
     }
   };
