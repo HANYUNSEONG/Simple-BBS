@@ -38,3 +38,20 @@
 - 게시글 리스트
   - 무한 스크롤링 구현
 - 게시글 삭제
+
+## 느낀 점
+
+**Client**
+
+- Next.js 동작에 대해 이해를 높였다.
+- React Query를 사용함으로 네트워크 비용을 줄이는 방법을 알았다.
+- Recoil를 사용하여 Global state를 관리할 수 있게 되었다.
+- Context api를 사용해서 AuthProvider를 만들어 권한 관련 처리를 하는 방법을 배웠다.
+- Toast UI Editor 사용 시 SSR을 지원 안 해주는 점을 Next.js에 dynamic import로 처리했다.
+- Intersection Observer를 사용한 무한 스크롤링을 구현할 수 있게 되었고 Custom hooks로 만들어 사용하는 방법을 알았다.
+
+**Server**
+
+- Nest.js의 기초를 다졌다.
+- TypeORM를 사용한 CRUD를 구성할 수 있게 되었다.
+- JWT를 이용한 로그인 처리를 했다.
